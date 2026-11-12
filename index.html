@@ -102,60 +102,17 @@
             <div>
                 <p class="mark">awesome-ai-game.site</p>
                 <h1>Awesome<br>AI Game</h1>
-                <p>最近的开源 AI HTML 游戏。挑一个，复制 prompt，或者把自己的游戏提交上来。</p>
+                <p>最近的开源 AI HTML 游戏。挑一个，复制 prompt，在浏览器里直接玩。</p>
             </div>
             <a class="github" href="https://github.com/noobimp/awesome-ai-game">GitHub</a>
         </header>
         <div class="toolbar">
             <input class="search" id="q" type="search" placeholder="搜索游戏、作者、模型、prompt">
             <div class="chips" id="chips"></div>
-            <button class="btn primary" id="openSubmit" type="button">提交游戏</button>
         </div>
         <div class="grid" id="grid"></div>
         <p class="empty" id="empty" hidden>没有匹配的游戏。</p>
-        <footer>合并进 <a href="https://github.com/noobimp/awesome-ai-game">noobimp/awesome-ai-game</a> 之后，游戏会同时出现在这个页面和 GitHub README 里。游戏版权归作者。</footer>
-    </div>
-
-    <div class="overlay" id="submitOverlay">
-        <form class="modal" id="form">
-            <h2>提交游戏</h2>
-            <p class="hint">截图以及前面的几项是必填。提交后会开一个 GitHub Pull Request，合并后才会公开展示。</p>
-            <label>用户 ID <span>*</span>
-                <input name="author" required maxlength="40" placeholder="你的 GitHub 用户名或 ID">
-            </label>
-            <label>游戏名 <span>*</span>
-                <input name="name" required maxlength="80" placeholder="游戏叫什么">
-            </label>
-            <label>项目地址 <span>*</span>
-                <input name="project_url" type="url" required placeholder="https://github.com/you/game">
-            </label>
-            <label>游戏地址 <span>*</span>
-                <input name="game_url" type="url" required placeholder="https://you.github.io/game/">
-            </label>
-            <label>游戏截图 <span>*</span></label>
-            <div class="drop" id="drop" tabindex="0">
-                <div>点击选择，或把图片拖进来，也可以粘贴</div>
-                <img id="preview" alt="" hidden>
-            </div>
-            <input id="file" name="screenshot" type="file" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
-            <label>使用的模型
-                <input name="model" maxlength="120" placeholder="例如 claude-fable-5-1">
-            </label>
-            <label>Prompt
-                <textarea name="prompt" maxlength="20000" placeholder="生成这个游戏时用的 prompt"></textarea>
-            </label>
-            <label>预算
-                <input name="budget" maxlength="80" placeholder="例如 $4.20 / 免费额度">
-            </label>
-            <label>对话链接
-                <input name="conversation_url" type="url" placeholder="https://... 这次工作的对话">
-            </label>
-            <p class="error" id="formError"></p>
-            <div class="row">
-                <button class="btn" type="button" id="closeSubmit">取消</button>
-                <button class="btn primary" id="send" type="submit">提交并开 Pull Request</button>
-            </div>
-        </form>
+        <footer>游戏版权归作者。感兴趣，或想贡献，请到 <a href="https://github.com/noobimp/awesome-ai-game/pulls">GitHub</a> 提交 Pull Request。</footer>
     </div>
 
     <div class="overlay" id="detailOverlay">
@@ -163,7 +120,7 @@
     </div>
 
     <script>
-        const state = { games: [], category: "全部", file: null };
+        const state = { games: [], category: "全部" };
 
         function text(value) {
             return value || "";
@@ -288,74 +245,12 @@
             document.getElementById("detailOverlay").classList.add("on");
         }
 
-        function setFile(file) {
-            if (!file || !file.type.startsWith("image/")) return;
-            state.file = file;
-            const img = document.getElementById("preview");
-            img.src = URL.createObjectURL(file);
-            img.hidden = false;
-        }
-
         document.getElementById("q").addEventListener("input", render);
-        document.getElementById("openSubmit").addEventListener("click", () => {
-            document.getElementById("formError").textContent = "";
-            document.getElementById("submitOverlay").classList.add("on");
+        document.getElementById("detailOverlay").addEventListener("click", (event) => {
+            if (event.target.id === "detailOverlay") event.currentTarget.classList.remove("on");
         });
-        document.getElementById("closeSubmit").addEventListener("click", () => {
-            document.getElementById("submitOverlay").classList.remove("on");
-        });
-        document.getElementById("drop").addEventListener("click", () => document.getElementById("file").click());
-        document.getElementById("file").addEventListener("change", () => setFile(document.getElementById("file").files[0]));
-        document.getElementById("drop").addEventListener("dragover", (event) => event.preventDefault());
-        document.getElementById("drop").addEventListener("drop", (event) => {
-            event.preventDefault();
-            setFile(event.dataTransfer.files[0]);
-        });
-        document.getElementById("drop").addEventListener("paste", (event) => {
-            for (const item of event.clipboardData.items) {
-                if (item.type.startsWith("image/")) setFile(item.getAsFile());
-            }
-        });
-        for (const overlay of document.querySelectorAll(".overlay")) {
-            overlay.addEventListener("click", (event) => {
-                if (event.target === overlay) overlay.classList.remove("on");
-            });
-        }
         document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape") {
-                document.getElementById("submitOverlay").classList.remove("on");
-                document.getElementById("detailOverlay").classList.remove("on");
-            }
-        });
-        document.getElementById("form").addEventListener("submit", async (event) => {
-            event.preventDefault();
-            const error = document.getElementById("formError");
-            const button = document.getElementById("send");
-            if (!state.file) {
-                error.textContent = "请先上传游戏截图";
-                return;
-            }
-            const data = new FormData(event.target);
-            data.set("screenshot", state.file, state.file.name || "screenshot.png");
-            button.disabled = true;
-            error.textContent = "";
-            button.textContent = "正在开 Pull Request…";
-            try {
-                const response = await fetch("/api/submit", { method: "POST", body: data });
-                const payload = await response.json();
-                if (!response.ok || !payload.ok) throw new Error(payload.error || "提交失败");
-                error.style.color = "var(--lime)";
-                error.textContent = "已开 Pull Request：" + payload.pr_url;
-                event.target.reset();
-                state.file = null;
-                document.getElementById("preview").hidden = true;
-            } catch (err) {
-                error.style.color = "var(--danger)";
-                error.textContent = err.message;
-            } finally {
-                button.disabled = false;
-                button.textContent = "提交并开 Pull Request";
-            }
+            if (event.key === "Escape") document.getElementById("detailOverlay").classList.remove("on");
         });
         load().catch(() => {
             document.getElementById("empty").hidden = false;

@@ -1,6 +1,8 @@
 # 参与收录
 
-网站上的提交会变成这个仓库的 Pull Request。合并之后，游戏会出现在：
+感兴趣，或想贡献，请到 GitHub 提交 Pull Request：https://github.com/noobimp/awesome-ai-game/pulls
+
+合并之后，游戏会出现在：
 
 - 网站（读 `data/games.json`）
 - README 的分类表和 Latest prompts

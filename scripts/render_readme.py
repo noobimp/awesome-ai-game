@@ -143,7 +143,6 @@ def render(games, updates):
         parts.append(f"- [{name}](#{anchor(name)}) ({len(by_category[name])})")
     parts.append(f"- [Latest prompts](#latest-prompts) ({len(latest)})")
     parts.append("- [How to use a prompt](#how-to-use-a-prompt)")
-    parts.append("- [Submit a game](#submit-a-game)")
     parts.append("- [Credits](#credits)")
     parts.append("")
 
@@ -169,34 +168,15 @@ def render(games, updates):
             "",
             "Some creators shared only part of their prompt, or only described the result in their project; those files say so.",
             "",
-            "## Submit a game",
-            "",
-            "The website at [awesome-ai-game.site](https://awesome-ai-game.site) turns a submission into a pull request against this repo. After it is merged, the game shows up on the site, in this README, in [`prompts/`](prompts/), and in [`data/games.json`](data/games.json).",
-            "",
-            "Required:",
-            "",
-            "- User ID",
-            "- Game name",
-            "- Project URL",
-            "- Playable game URL",
-            "- Screenshot",
-            "",
-            "Optional, and listed after the screenshot on the form:",
-            "",
-            "- Model",
-            "- Prompt",
-            "- Budget",
-            "- Link to the working conversation",
-            "",
-            "You can also open the pull request yourself. Add `prompts/<id>.md`, a screenshot under `screenshots/`, and an entry in `data/games.json`. The README is generated from that file with `python3 scripts/render_readme.py`.",
-            "",
             "## Credits",
             "",
-            "Every game and prompt belongs to its creator, linked from each entry. Title cards in the opening collection are stand-ins where the creator did not publish a screenshot; submitted games use the author's screenshot. If you are a creator and want an entry changed or removed, open an issue.",
+            "Every game and prompt belongs to its creator, linked from each entry. Title cards in the opening collection are stand-ins where the creator did not publish a screenshot. If you are a creator and want an entry changed or removed, open an issue.",
             "",
             "The catalog and this website's code are MIT. Each game stays under its creator's own license.",
             "",
             f"Play the collection at **[awesome-ai-game.site]({SITE})**.",
+            "",
+            "Interested, or want to contribute? Open a pull request on [GitHub](https://github.com/noobimp/awesome-ai-game/pulls).",
             "",
         ]
     )
