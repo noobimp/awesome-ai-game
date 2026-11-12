@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awesome AI Game</title>
+    <meta name="description" content="开源 AI HTML 游戏收录。提交后会变成 GitHub Pull Request，合并后在网站和仓库里展示。">
+    <style>
+        :root {
+            --bg: #101014;
+            --bg-2: #18181f;
+            --line: #2c2c36;
+            --text: #f4f1ea;
+            --muted: #a39e93;
+            --lime: #e8ff47;
+            --danger: #ff6b5a;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: "Avenir Next", "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+            background: radial-gradient(1200px 500px at 10% -10%, #2a2a16 0%, transparent 55%), var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+        a { color: inherit; }
+        .wrap { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 24px;
+            padding: 36px 0 12px;
+        }
+        .mark { font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--lime); margin: 0 0 8px; }
+        h1 { font-family: Georgia, "Songti SC", serif; font-size: clamp(40px, 6vw, 68px); line-height: 0.92; margin: 0; font-weight: 500; }
+        header p { margin: 12px 0 0; color: var(--muted); max-width: 460px; }
+        .github {
+            border: 1px solid var(--line);
+            padding: 10px 14px;
+            border-radius: 999px;
+            text-decoration: none;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+        .github:hover { color: var(--text); border-color: var(--text); }
+        .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 28px 0; }
+        .search, select, input, textarea {
+            background: var(--bg-2);
+            color: var(--text);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 12px 14px;
+            font: inherit;
+        }
+        .search { flex: 1; min-width: 220px; }
+        .search:focus, input:focus, textarea:focus { outline: 2px solid var(--lime); border-color: transparent; }
+        .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+        .chip, .btn {
+            border: 1px solid var(--line);
+            background: transparent;
+            color: var(--text);
+            border-radius: 999px;
+            padding: 10px 14px;
+            cursor: pointer;
+            font: inherit;
+        }
+        .chip.on, .btn.primary { background: var(--lime); color: #16160a; border-color: var(--lime); font-weight: 650; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; padding-bottom: 64px; }
+        .card { background: var(--bg-2); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
+        .card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: #0b0b0e; display: block; }
+        .card .body { padding: 14px 14px 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+        .card h2 { font-size: 20px; margin: 0; }
+        .meta { color: var(--muted); font-size: 13px; }
+        .actions { display: flex; gap: 8px; margin-top: auto; }
+        .actions a, .actions button { flex: 1; text-align: center; text-decoration: none; }
+        .empty { color: var(--muted); padding: 48px 0 80px; }
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,.72); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 5; }
+        .overlay.on { display: flex; }
+        .modal { width: min(640px, 100%); max-height: calc(100vh - 32px); overflow: auto; background: #16161c; border: 1px solid var(--line); border-radius: 18px; padding: 18px 18px 0; }
+        .modal h2 { margin: 0 0 6px; font-family: Georgia, "Songti SC", serif; }
+        .hint { color: var(--muted); margin: 0 0 8px; font-size: 14px; }
+        label { display: block; margin: 12px 0 0; color: var(--muted); font-size: 13px; }
+        label input, label textarea { margin-top: 6px; }
+        label span { color: var(--lime); }
+        input[type="text"], input[type="url"], textarea { width: 100%; }
+        textarea { min-height: 72px; resize: vertical; }
+        .drop { border: 1px dashed #4a4a58; border-radius: 12px; padding: 12px; text-align: center; color: var(--muted); cursor: pointer; }
+        .drop img { max-width: 100%; max-height: 140px; margin-top: 10px; border-radius: 8px; }
+        .drop strong { color: var(--text); }
+        .error { color: var(--danger); min-height: 1.2em; font-size: 14px; position: sticky; bottom: 58px; background: #16161c; margin: 10px 0 0; }
+        .row { display: flex; justify-content: flex-end; gap: 8px; position: sticky; bottom: 0; margin: 8px -18px 0; padding: 12px 18px; background: #16161c; border-top: 1px solid var(--line); }
+        .detail img { width: 100%; border-radius: 12px; }
+        .detail dt { color: var(--muted); font-size: 12px; margin-top: 12px; }
+        .detail dd { margin: 4px 0 0; white-space: pre-wrap; word-break: break-word; }
+        footer { color: var(--muted); padding: 8px 0 36px; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <div>
+                <p class="mark">awesome-ai-game.site</p>
+                <h1>Awesome<br>AI Game</h1>
+                <p>最近的开源 AI HTML 游戏。挑一个，复制 prompt，或者把自己的游戏提交上来。</p>
+            </div>
+            <a class="github" href="https://github.com/noobimp/awesome-ai-game">GitHub</a>
+        </header>
+        <div class="toolbar">
+            <input class="search" id="q" type="search" placeholder="搜索游戏、作者、模型、prompt">
+            <div class="chips" id="chips"></div>
+            <button class="btn primary" id="openSubmit" type="button">提交游戏</button>
+        </div>
+        <div class="grid" id="grid"></div>
+        <p class="empty" id="empty" hidden>没有匹配的游戏。</p>
+        <footer>合并进 <a href="https://github.com/noobimp/awesome-ai-game">noobimp/awesome-ai-game</a> 之后，游戏会同时出现在这个页面和 GitHub README 里。游戏版权归作者。</footer>
+    </div>
+
+    <div class="overlay" id="submitOverlay">
+        <form class="modal" id="form">
+            <h2>提交游戏</h2>
+            <p class="hint">截图以及前面的几项是必填。提交后会开一个 GitHub Pull Request，合并后才会公开展示。</p>
+            <label>用户 ID <span>*</span>
+                <input name="author" required maxlength="40" placeholder="你的 GitHub 用户名或 ID">
+            </label>
+            <label>游戏名 <span>*</span>
+                <input name="name" required maxlength="80" placeholder="游戏叫什么">
+            </label>
+            <label>项目地址 <span>*</span>
+                <input name="project_url" type="url" required placeholder="https://github.com/you/game">
+            </label>
+            <label>游戏地址 <span>*</span>
+                <input name="game_url" type="url" required placeholder="https://you.github.io/game/">
+            </label>
+            <label>游戏截图 <span>*</span></label>
+            <div class="drop" id="drop" tabindex="0">
+                <div>点击选择，或把图片拖进来，也可以粘贴</div>
+                <img id="preview" alt="" hidden>
+            </div>
+            <input id="file" name="screenshot" type="file" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+            <label>使用的模型
+                <input name="model" maxlength="120" placeholder="例如 claude-fable-5-1">
+            </label>
+            <label>Prompt
+                <textarea name="prompt" maxlength="20000" placeholder="生成这个游戏时用的 prompt"></textarea>
+            </label>
+            <label>预算
+                <input name="budget" maxlength="80" placeholder="例如 $4.20 / 免费额度">
+            </label>
+            <label>对话链接
+                <input name="conversation_url" type="url" placeholder="https://... 这次工作的对话">
+            </label>
+            <p class="error" id="formError"></p>
+            <div class="row">
+                <button class="btn" type="button" id="closeSubmit">取消</button>
+                <button class="btn primary" id="send" type="submit">提交并开 Pull Request</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="overlay" id="detailOverlay">
+        <div class="modal detail" id="detail"></div>
+    </div>
+
+    <script>
+        const state = { games: [], category: "全部", file: null };
+
+        function text(value) {
+            return value || "";
+        }
+
+        async function load() {
+            const response = await fetch("data/games.json");
+            state.games = await response.json();
+            renderChips();
+            render();
+        }
+
+        function categories() {
+            return ["全部", ...new Set(state.games.map((game) => game.category))];
+        }
+
+        function renderChips() {
+            const box = document.getElementById("chips");
+            box.replaceChildren();
+            for (const name of categories()) {
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "chip" + (name === state.category ? " on" : "");
+                button.textContent = name;
+                button.addEventListener("click", () => {
+                    state.category = name;
+                    renderChips();
+                    render();
+                });
+                box.append(button);
+            }
+        }
+
+        function matches(game) {
+            if (state.category !== "全部" && game.category !== state.category) return false;
+            const q = document.getElementById("q").value.trim().toLowerCase();
+            if (!q) return true;
+            return [game.name, game.author, game.model, game.prompt, game.category, game.stack].join("\n").toLowerCase().includes(q);
+        }
+
+        function render() {
+            const grid = document.getElementById("grid");
+            const found = state.games.filter(matches);
+            document.getElementById("empty").hidden = found.length !== 0;
+            grid.replaceChildren();
+            for (const game of found) {
+                const card = document.createElement("article");
+                card.className = "card";
+                const img = document.createElement("img");
+                img.src = game.screenshot;
+                img.alt = game.name;
+                const body = document.createElement("div");
+                body.className = "body";
+                const title = document.createElement("h2");
+                title.textContent = game.name;
+                const meta = document.createElement("div");
+                meta.className = "meta";
+                meta.textContent = "@" + game.author.replace(/^@/, "") + " · " + (game.model || game.stack);
+                const actions = document.createElement("div");
+                actions.className = "actions";
+                const play = document.createElement("a");
+                play.className = "btn primary";
+                play.href = game.game_url;
+                play.target = "_blank";
+                play.rel = "noreferrer";
+                play.textContent = "开始玩";
+                const more = document.createElement("button");
+                more.className = "btn";
+                more.type = "button";
+                more.textContent = "详情";
+                more.addEventListener("click", () => openDetail(game));
+                actions.append(play, more);
+                body.append(title, meta, actions);
+                card.append(img, body);
+                grid.append(card);
+            }
+        }
+
+        function openDetail(game) {
+            const box = document.getElementById("detail");
+            box.replaceChildren();
+            const title = document.createElement("h2");
+            title.textContent = game.name;
+            const img = document.createElement("img");
+            img.src = game.screenshot;
+            img.alt = game.name;
+            const list = document.createElement("dl");
+            const rows = [
+                ["作者", "@" + game.author.replace(/^@/, "")],
+                ["分类", game.category],
+                ["模型", game.model],
+                ["技术", game.stack],
+                ["预算", game.budget],
+                ["项目", game.project_url],
+                ["游戏", game.game_url],
+                ["对话", game.conversation_url],
+                ["Prompt", game.prompt_kind === "described" && !game.prompt ? "作者没有公开单条 prompt" : game.prompt]
+            ];
+            for (const [key, value] of rows) {
+                if (!value) continue;
+                const dt = document.createElement("dt");
+                dt.textContent = key;
+                const dd = document.createElement("dd");
+                dd.textContent = value;
+                list.append(dt, dd);
+            }
+            const row = document.createElement("div");
+            row.className = "row";
+            const close = document.createElement("button");
+            close.className = "btn";
+            close.type = "button";
+            close.textContent = "关闭";
+            close.addEventListener("click", () => document.getElementById("detailOverlay").classList.remove("on"));
+            const play = document.createElement("a");
+            play.className = "btn primary";
+            play.href = game.game_url;
+            play.target = "_blank";
+            play.rel = "noreferrer";
+            play.textContent = "开始玩";
+            row.append(close, play);
+            box.append(title, row, img, list);
+            document.getElementById("detailOverlay").classList.add("on");
+        }
+
+        function setFile(file) {
+            if (!file || !file.type.startsWith("image/")) return;
+            state.file = file;
+            const img = document.getElementById("preview");
+            img.src = URL.createObjectURL(file);
+            img.hidden = false;
+        }
+
+        document.getElementById("q").addEventListener("input", render);
+        document.getElementById("openSubmit").addEventListener("click", () => {
+            document.getElementById("formError").textContent = "";
+            document.getElementById("submitOverlay").classList.add("on");
+        });
+        document.getElementById("closeSubmit").addEventListener("click", () => {
+            document.getElementById("submitOverlay").classList.remove("on");
+        });
+        document.getElementById("drop").addEventListener("click", () => document.getElementById("file").click());
+        document.getElementById("file").addEventListener("change", () => setFile(document.getElementById("file").files[0]));
+        document.getElementById("drop").addEventListener("dragover", (event) => event.preventDefault());
+        document.getElementById("drop").addEventListener("drop", (event) => {
+            event.preventDefault();
+            setFile(event.dataTransfer.files[0]);
+        });
+        document.getElementById("drop").addEventListener("paste", (event) => {
+            for (const item of event.clipboardData.items) {
+                if (item.type.startsWith("image/")) setFile(item.getAsFile());
+            }
+        });
+        for (const overlay of document.querySelectorAll(".overlay")) {
+            overlay.addEventListener("click", (event) => {
+                if (event.target === overlay) overlay.classList.remove("on");
+            });
+        }
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+                document.getElementById("submitOverlay").classList.remove("on");
+                document.getElementById("detailOverlay").classList.remove("on");
+            }
+        });
+        document.getElementById("form").addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const error = document.getElementById("formError");
+            const button = document.getElementById("send");
+            if (!state.file) {
+                error.textContent = "请先上传游戏截图";
+                return;
+            }
+            const data = new FormData(event.target);
+            data.set("screenshot", state.file, state.file.name || "screenshot.png");
+            button.disabled = true;
+            error.textContent = "";
+            button.textContent = "正在开 Pull Request…";
+            try {
+                const response = await fetch("/api/submit", { method: "POST", body: data });
+                const payload = await response.json();
+                if (!response.ok || !payload.ok) throw new Error(payload.error || "提交失败");
+                error.style.color = "var(--lime)";
+                error.textContent = "已开 Pull Request：" + payload.pr_url;
+                event.target.reset();
+                state.file = null;
+                document.getElementById("preview").hidden = true;
+            } catch (err) {
+                error.style.color = "var(--danger)";
+                error.textContent = err.message;
+            } finally {
+                button.disabled = false;
+                button.textContent = "提交并开 Pull Request";
+            }
+        });
+        load().catch(() => {
+            document.getElementById("empty").hidden = false;
+            document.getElementById("empty").textContent = "没有读到 data/games.json。";
+        });
+    </script>
+</body>
+</html>
