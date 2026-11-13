@@ -2,7 +2,7 @@
 
 [▶ Play](https://sorrycc.github.io/fable-arcade/games/voxel-gta-city/) · [Original project](https://github.com/sorrycc/fable-arcade)
 
-<img src="../screenshots/fable-theft-auto.png" alt="Fable Theft Auto 5.1" width="100%">
+<img src="../screenshots/fable-theft-auto.jpg" alt="Fable Theft Auto 5.1" width="100%">
 
 - **Category:** Action
 - **Built with:** Three.js

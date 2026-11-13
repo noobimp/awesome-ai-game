@@ -2,7 +2,7 @@
 
 [▶ Play](https://sorrycc.github.io/fable-arcade/games/flappy-bird/) · [Original project](https://github.com/sorrycc/fable-arcade)
 
-<img src="../screenshots/flappy-skies.png" alt="Flappy Skies" width="100%">
+<img src="../screenshots/flappy-skies.jpg" alt="Flappy Skies" width="100%">
 
 - **Category:** Arcade
 - **Built with:** Canvas · Web Audio

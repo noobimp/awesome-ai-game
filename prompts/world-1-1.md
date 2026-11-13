@@ -2,7 +2,7 @@
 
 [▶ Play](https://sorrycc.github.io/fable-arcade/games/mario-1-1/) · [Original project](https://github.com/sorrycc/fable-arcade)
 
-<img src="../screenshots/world-1-1.png" alt="World 1-1" width="100%">
+<img src="../screenshots/world-1-1.jpg" alt="World 1-1" width="100%">
 
 - **Category:** Platformers
 - **Built with:** Canvas

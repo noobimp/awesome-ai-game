@@ -2,7 +2,7 @@
 
 [▶ Play](https://sorrycc.github.io/fable-arcade/games/subway-runner/) · [Original project](https://github.com/sorrycc/fable-arcade)
 
-<img src="../screenshots/rail-rush.png" alt="Rail Rush" width="100%">
+<img src="../screenshots/rail-rush.jpg" alt="Rail Rush" width="100%">
 
 - **Category:** Racing
 - **Built with:** Three.js

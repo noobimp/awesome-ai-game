@@ -2,7 +2,7 @@
 
 [▶ Play](https://sorrycc.github.io/fable-arcade/games/robot-tennis/) · [Original project](https://github.com/sorrycc/fable-arcade)
 
-<img src="../screenshots/robo-tennis.png" alt="Robo Tennis" width="100%">
+<img src="../screenshots/robo-tennis.jpg" alt="Robo Tennis" width="100%">
 
 - **Category:** Action
 - **Built with:** Three.js

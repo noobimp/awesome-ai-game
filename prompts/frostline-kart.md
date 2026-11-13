@@ -2,7 +2,7 @@
 
 [▶ Play](https://sorrycc.github.io/fable-arcade/games/mario-kart-snow/) · [Original project](https://github.com/sorrycc/fable-arcade)
 
-<img src="../screenshots/frostline-kart.png" alt="Frostline Kart" width="100%">
+<img src="../screenshots/frostline-kart.jpg" alt="Frostline Kart" width="100%">
 
 - **Category:** Racing
 - **Built with:** Three.js

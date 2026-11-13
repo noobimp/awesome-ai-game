@@ -2,7 +2,7 @@
 
 [▶ Play](https://sorrycc.github.io/fable-arcade/games/crossy-farm-car/) · [Original project](https://github.com/sorrycc/fable-arcade)
 
-<img src="../screenshots/crossy-farm.png" alt="Crossy Farm" width="100%">
+<img src="../screenshots/crossy-farm.jpg" alt="Crossy Farm" width="100%">
 
 - **Category:** Racing
 - **Built with:** Three.js

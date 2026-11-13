@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SITE = "https://awesome-ai-game.site/?utm_source=github&utm_medium=readme&utm_campaign=awesome-ai-game"
+SITE = "https://github.com/noobimp/awesome-ai-game"
 CATEGORY_ORDER = ["Arcade", "Platformers", "Racing", "Action", "Collections", "Community"]
 
 
@@ -124,7 +124,7 @@ def render(games, updates):
         "",
         "Every game here was made by asking a model to write the game as code (HTML, Canvas, JavaScript, Three.js and friends). Pick one, copy its prompt, and try it with your own agent.",
         "",
-        f"**[▶ Play the collection on awesome-ai-game.site]({SITE})**",
+        f"**[▶ Browse the catalog on GitHub]({SITE})**",
         "",
         f'<a href="{SITE}"><img src="assets/readme/site.png" alt="The Awesome AI Game website, a catalog of playable AI HTML games" width="100%"></a>',
         "",
@@ -170,11 +170,11 @@ def render(games, updates):
             "",
             "## Credits",
             "",
-            "Every game and prompt belongs to its creator, linked from each entry. Title cards in the opening collection are stand-ins where the creator did not publish a screenshot. If you are a creator and want an entry changed or removed, open an issue.",
+            "Every game and prompt belongs to its creator, linked from each entry. Flappy Skies, World 1-1, Hollowmere, Frostline Kart, Rail Rush, Crossy Farm, Robo Tennis, and Fable Theft Auto use a frame from the running game. Space Invaders Devstral, Space Invaders GLM, 100 Games, and Vibe Games still use title cards. If you are a creator and want an entry changed or removed, open an issue.",
             "",
             "The catalog and this website's code are MIT. Each game stays under its creator's own license.",
             "",
-            f"Play the collection at **[awesome-ai-game.site]({SITE})**.",
+            f"The catalog is on **[GitHub]({SITE})**.",
             "",
             "Interested, or want to contribute? Open a pull request on [GitHub](https://github.com/noobimp/awesome-ai-game/pulls).",
             "",

@@ -2,7 +2,7 @@
 
 [▶ Play](https://sorrycc.github.io/fable-arcade/games/terraria-sandbox/) · [Original project](https://github.com/sorrycc/fable-arcade)
 
-<img src="../screenshots/hollowmere.png" alt="Hollowmere" width="100%">
+<img src="../screenshots/hollowmere.jpg" alt="Hollowmere" width="100%">
 
 - **Category:** Platformers
 - **Built with:** Canvas
