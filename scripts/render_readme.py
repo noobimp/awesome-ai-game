@@ -170,7 +170,7 @@ def render(games, updates):
             "",
             "## Credits",
             "",
-            "Every game and prompt belongs to its creator, linked from each entry. Flappy Skies, World 1-1, Hollowmere, Frostline Kart, Rail Rush, Crossy Farm, Robo Tennis, and Fable Theft Auto use a frame from the running game. Space Invaders Devstral, Space Invaders GLM, 100 Games, and Vibe Games still use title cards. If you are a creator and want an entry changed or removed, open an issue.",
+            "Every game and prompt belongs to its creator, linked from each entry. Flappy Skies, World 1-1, Hollowmere, Frostline Kart, Rail Rush, Crossy Farm, Robo Tennis, Fable Theft Auto, QQ飞车, 穿越火线之运输船, 鹈鹕骑自行车, 英雄联盟海克斯大乱斗, and 黑神话悟空 use a frame from the running game. Space Invaders Devstral, Space Invaders GLM, 100 Games, and Vibe Games still use title cards. If you are a creator and want an entry changed or removed, open an issue.",
             "",
             "The catalog and this website's code are MIT. Each game stays under its creator's own license.",
             "",
