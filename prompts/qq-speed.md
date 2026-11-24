@@ -2,7 +2,7 @@
 
 [▶ Play](https://lf3-static.bytednsdoc.com/obj/eden-cn/nulojnulwlo/qqfeiche3d/index.html) · [Original project](https://github.com/riba2534/claude-opus-5-5-demo)
 
-<img src="../screenshots/qq-speed.jpg" alt="QQ飞车" width="100%">
+<img src="../screenshots/qq-speed.gif" alt="QQ飞车" width="100%">
 
 - **Category:** Racing
 - **Built with:** Three.js · HTML
